@@ -434,13 +434,10 @@
           <h1 class="hero-title">Sanyal Singh<span class="cursor-blink"></span></h1>
           <div class="hero-bio">
             <p>
-              I'm an AI engineer and technology builder focused on creating <span class="hl">intelligent systems</span> and innovative technology products. I enjoy building things from the ground up and exploring how modern AI can be used to solve real-world problems. My work centers on combining large language models <span class="hl">[LLMs]</span> with strong software engineering to build scalable and practical AI applications.
+              AI engineer building production-grade <span class="hl">intelligent systems</span> — from agentic workflows and LLM pipelines to full-stack AI products. I work primarily in <span class="hl">Python</span> and <span class="hl">Next.js</span>, focused on turning complex AI research into software people actually use.
             </p>
             <p>
-              I primarily work with <span class="hl">Python</span>, <span class="hl">TypeScript</span>, and <span class="hl">Next.js</span> to design and develop modern AI-powered systems. I'm particularly interested in <span class="hl">agentic AI</span>, advanced machine learning systems, and building impactful technology from first principles.
-            </p>
-            <p>
-              My ultimate ambition is to move to the United States on an <span class="hl">O-1 Extraordinary Ability Visa</span> to build a globally impactful AI company and shape the next generation of computing infrastructure.
+              Currently working on <span class="hl">agentic AI</span> and <span class="hl">large language model</span> applications, solving real problems at the intersection of ML engineering and product development.
             </p>
           </div>
         </div>
@@ -523,29 +520,7 @@
       <section class="writing-section" id="live-projects" style="margin-bottom: 80px;">
         <div class="section-label">Live Projects</div>
         <div class="live-projects-grid">
-          
-          <!-- Lextriq Card -->
-          <div style="width: 100%; aspect-ratio: 16 / 9; height: auto; border: 2px solid var(--text); overflow: hidden; background: #f8f8f8; position: relative;">
-            <!-- Top Browser Bar Mockup -->
-            <div style="background: var(--text); color: var(--bg); padding: 6px 12px; font-family: var(--mono); font-size: 11px; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
-              <div style="display: flex; gap: 6px;">
-                <span style="width: 8px; height: 8px; background: #ff5f56; border-radius: 50%; display: inline-block;"></span>
-                <span style="width: 8px; height: 8px; background: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
-                <span style="width: 8px; height: 8px; background: #27c93f; border-radius: 50%; display: inline-block;"></span>
-              </div>
-              <div style="opacity: 0.8; letter-spacing: 0.05em;">lextriq.vercel.app</div>
-            </div>
-            <!-- iframe content replaced with image thumbnail to bypass frame blocking -->
-            <a href="https://lextriq.vercel.app/" target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; height: calc(100% - 28px); overflow: hidden;">
-              <img 
-                src="https://api.microlink.io/?url=https%3A%2F%2Flextriq.vercel.app&screenshot=true&meta=false&embed=screenshot.url" 
-                alt="Lextriq Live Preview Link"
-                style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block;"
-                loading="lazy"
-              />
-            </a>
-          </div>
-          
+          <!-- Projects will go here -->
         </div>
       </section>
 
@@ -553,18 +528,7 @@
       <section class="writing-section" id="writing">
         <div class="section-label">Writing</div>
         <div class="writing-list">
-          <a href="https://x.com/Hxappyy/status/2017501886866505804?s=20" target="_blank" rel="noopener noreferrer" class="writing-item">
-            <span class="w-date"><img src="https://cdn.simpleicons.org/x/000000" width="16" height="16" alt="X Thread" /></span>
-            <span class="w-title">Effective way for the vibe-coding ( don't waste time )</span>
-          </a>
-          <a href="https://x.com/Hxappyy/status/2021844741294633371?s=20" target="_blank" rel="noopener noreferrer" class="writing-item">
-            <span class="w-date"><img src="https://cdn.simpleicons.org/x/000000" width="16" height="16" alt="X Thread" /></span>
-            <span class="w-title">First Principles Thinking</span>
-          </a>
-          <a href="https://x.com/Hxappyy/status/2023418617082290679?s=20" target="_blank" rel="noopener noreferrer" class="writing-item">
-            <span class="w-date"><img src="https://cdn.simpleicons.org/x/000000" width="16" height="16" alt="X Thread" /></span>
-            <span class="w-title">How to get and evaluate startup ideas</span>
-          </a>
+          <!-- Writing items will go here -->
         </div>
       </section>
 
@@ -572,7 +536,7 @@
       <section class="writing-section" id="repos">
         <div class="section-label">Repos</div>
         <div class="writing-list" id="github-repos-list">
-          <div style="font-family: var(--mono); font-size: 14px; padding: 16px 8px;">Loading GitHub repos...</div>
+          <div style="font-family: var(--mono); font-size: 14px; padding: 16px 8px; opacity: 0.5;">Loading repos...</div>
         </div>
       </section>
 
@@ -614,119 +578,95 @@
     </footer>
 
     <script>
-      async function loadGitHubRepos() {
-        const container = document.getElementById("github-repos-list");
-        const cacheKey = "github_repos_cache";
-        const cacheTimeKey = "github_repos_cache_time";
-        const cacheDuration = 1000 * 60 * 60; // 1 hour
+      (async function loadGitHubRepos() {
+        const container = document.getElementById('github-repos-list');
+        const CACHE_KEY = 'gh_repos';
+        const CACHE_TIME_KEY = 'gh_repos_ts';
+        const CACHE_TTL = 3600000; // 1 hour
 
         try {
-          const cachedData = sessionStorage.getItem(cacheKey);
-          const cachedTime = sessionStorage.getItem(cacheTimeKey);
-          
-          let repos = [];
-          
-          if (cachedData && cachedTime && (Date.now() - cachedTime < cacheDuration)) {
-            repos = JSON.parse(cachedData);
-          } else {
-            const response = await fetch("https://api.github.com/users/Happysingh1062003/repos?per_page=100&sort=updated");
-            if (!response.ok) throw new Error("API rate limit or error");
-            repos = await response.json();
-            
-            sessionStorage.setItem(cacheKey, JSON.stringify(repos));
-            sessionStorage.setItem(cacheTimeKey, Date.now().toString());
-          }
-          
-          // Filter out forks and take top 5 most starred
-          const topRepos = repos
-            .filter((repo) => !repo.fork)
-            .sort((a, b) => b.stargazers_count - a.stargazers_count)
-            .slice(0, 5);
-            
-          container.innerHTML = "";
-          
-          topRepos.forEach((repo) => {
-            const year = new Date(repo.created_at).getFullYear();
-            
-            const link = document.createElement("a");
-            link.className = "writing-item";
-            link.href = repo.html_url;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            
-            const dateSpan = document.createElement("span");
-            dateSpan.className = "w-date";
-            dateSpan.textContent = repo.stargazers_count > 0 ? `★ ${repo.stargazers_count}` : year;
-            
-            const titleContainer = document.createElement("div");
-            titleContainer.style.flex = "1";
-            titleContainer.style.display = "flex";
-            titleContainer.style.flexDirection = "column";
+          let repos;
+          const cached = sessionStorage.getItem(CACHE_KEY);
+          const cachedAt = sessionStorage.getItem(CACHE_TIME_KEY);
 
-            const titleSpan = document.createElement("span");
-            titleSpan.className = "w-title";
-            titleSpan.textContent = repo.name;
-            titleContainer.appendChild(titleSpan);
+          if (cached && cachedAt && Date.now() - Number(cachedAt) < CACHE_TTL) {
+            repos = JSON.parse(cached);
+          } else {
+            const res = await fetch('https://api.github.com/users/Happysingh1062003/repos?per_page=100&sort=updated');
+            if (!res.ok) throw new Error('GitHub API error');
+            repos = await res.json();
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify(repos));
+            sessionStorage.setItem(CACHE_TIME_KEY, String(Date.now()));
+          }
+
+          const filtered = repos
+            .filter(r => !r.fork)
+            .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+
+          if (!filtered.length) {
+            container.innerHTML = '<div style="font-family:var(--mono);font-size:14px;padding:16px 8px;">No public repos yet.</div>';
+            return;
+          }
+
+          container.innerHTML = '';
+
+          filtered.forEach(repo => {
+            const link = document.createElement('a');
+            link.className = 'writing-item';
+            link.href = repo.html_url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+
+            // Star count or year
+            const dateSpan = document.createElement('span');
+            dateSpan.className = 'w-date';
+            dateSpan.textContent = repo.stargazers_count > 0 ? `★ ${repo.stargazers_count}` : new Date(repo.created_at).getFullYear();
+
+            // Title + description + meta
+            const info = document.createElement('div');
+            info.style.cssText = 'flex:1;display:flex;flex-direction:column;';
+
+            const title = document.createElement('span');
+            title.className = 'w-title';
+            title.textContent = repo.name;
+            info.appendChild(title);
 
             if (repo.description) {
-              const descSpan = document.createElement("span");
-              descSpan.style.fontFamily = "var(--sans)";
-              descSpan.style.fontSize = "13px";
-              descSpan.style.opacity = "0.7";
-              descSpan.style.marginTop = "4px";
-              descSpan.textContent = repo.description;
-              titleContainer.appendChild(descSpan);
+              const desc = document.createElement('span');
+              desc.style.cssText = 'font-family:var(--sans);font-size:13px;opacity:0.7;margin-top:4px;';
+              desc.textContent = repo.description;
+              info.appendChild(desc);
             }
-            
-            // Meta row (language, forks, timestamp)
-            const metaContainer = document.createElement("div");
-            metaContainer.style.display = "flex";
-            metaContainer.style.gap = "16px";
-            metaContainer.style.marginTop = "8px";
-            metaContainer.style.fontFamily = "var(--mono)";
-            metaContainer.style.fontSize = "11px";
-            metaContainer.style.opacity = "0.5";
-            metaContainer.style.textTransform = "uppercase";
+
+            const meta = document.createElement('div');
+            meta.style.cssText = 'display:flex;gap:16px;margin-top:8px;font-family:var(--mono);font-size:11px;opacity:0.5;text-transform:uppercase;';
 
             if (repo.language) {
-              const langSpan = document.createElement("span");
-              langSpan.textContent = `[${repo.language}]`;
-              metaContainer.appendChild(langSpan);
+              const lang = document.createElement('span');
+              lang.textContent = `[${repo.language}]`;
+              meta.appendChild(lang);
             }
 
-            if (repo.forks_count > 0) {
-              const forkSpan = document.createElement("span");
-              forkSpan.textContent = `Forks: ${repo.forks_count}`;
-              metaContainer.appendChild(forkSpan);
-            }
+            const updated = document.createElement('span');
+            updated.textContent = `Updated: ${new Date(repo.updated_at).toLocaleDateString(undefined, {month:'short', year:'numeric'})}`;
+            meta.appendChild(updated);
 
-            const updatedDate = new Date(repo.updated_at).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
-            const timeSpan = document.createElement("span");
-            timeSpan.textContent = `Updated: ${updatedDate}`;
-            metaContainer.appendChild(timeSpan);
+            info.appendChild(meta);
 
-            titleContainer.appendChild(metaContainer);
-            
             link.appendChild(dateSpan);
-            link.appendChild(titleContainer);
+            link.appendChild(info);
             container.appendChild(link);
           });
-          
-          if (!topRepos.length) {
-            container.innerHTML = '<div style="font-family: var(--mono); font-size: 14px; padding: 16px 8px;">No public repos yet.</div>';
-          }
-          
-        } catch (err) {
+
+        } catch (e) {
           container.innerHTML = `
             <a href="https://github.com/Happysingh1062003" target="_blank" rel="noopener noreferrer" class="writing-item">
-              <span class="w-date">GitHub</span>
+              <span class="w-date">→</span>
               <span class="w-title">View all repositories on GitHub ↗</span>
-            </a>
-          `;
+            </a>`;
         }
-      }
-      
-      loadGitHubRepos();
+      })();
     </script>
+
   </body>
 </html>
